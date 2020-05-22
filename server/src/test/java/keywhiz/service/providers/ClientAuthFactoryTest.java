@@ -42,9 +42,10 @@ import static org.mockito.Mockito.when;
 public class ClientAuthFactoryTest {
   @Rule public MockitoRule mockito = MockitoJUnit.rule();
 
-  private static final Principal principal = SimplePrincipal.of("CN=principal,OU=organizational-unit");
+  private static final Principal principal =
+      SimplePrincipal.of("CN=principal,OU=organizational-unit");
   private static final Client client =
-      new Client(0, "principal", null, null, null, null, null, null, null, true, false);
+      new Client(0, "principal", null, null, null, null, null, null, null, true, false, null);
 
   @Mock ContainerRequest request;
   @Mock SecurityContext securityContext;
@@ -74,8 +75,8 @@ public class ClientAuthFactoryTest {
 
   @Test(expected = NotAuthorizedException.class)
   public void rejectsDisabledClients() {
-    Client disabledClient =new Client(1, "disabled", null, null, null, null, null, null, null,
-        false /* disabled */, false);
+    Client disabledClient = new Client(1, "disabled", null, null, null, null, null, null, null,
+        false /* disabled */, false, null);
 
     when(securityContext.getUserPrincipal()).thenReturn(SimplePrincipal.of("CN=disabled"));
     when(clientDAO.getClient("disabled")).thenReturn(Optional.of(disabledClient));
@@ -86,7 +87,7 @@ public class ClientAuthFactoryTest {
   @Test public void createsDbRecordForNewClient() throws Exception {
     ApiDate now = ApiDate.now();
     Client newClient = new Client(2345L, "new-client", "desc", now, "automatic", now, "automatic",
-        null, null, true, false);
+        null, null, true, false, null);
 
     // lookup doesn't find client
     when(securityContext.getUserPrincipal()).thenReturn(SimplePrincipal.of("CN=new-client"));
@@ -104,5 +105,4 @@ public class ClientAuthFactoryTest {
     factory.provide(request);
     verify(clientDAO, times(1)).sawClient(any(), eq(principal));
   }
-
 }

@@ -48,7 +48,7 @@ public class AutomationClientResourceTest {
   @Mock AclDAO aclDAO;
   ApiDate now = ApiDate.now();
   AutomationClient automation = AutomationClient.of(
-      new Client(1, "automation", "Automation client", now, "test", now, "test", null, null, true, true));
+      new Client(1, "automation", "Automation client", now, "test", now, "test", null, null, true, true, null));
   AuditLog auditLog = new SimpleLogger();
 
   AutomationClientResource resource;
@@ -58,7 +58,7 @@ public class AutomationClientResourceTest {
   }
 
   @Test public void findClientByName() {
-    Client client = new Client(2, "client", "2nd client", now, "test", now, "test", null, null, true, false);
+    Client client = new Client(2, "client", "2nd client", now, "test", now, "test", null, null, true, false, null);
     Group firstGroup = new Group(1, "first Group", "testing group", now, "client", now, "client",
         ImmutableMap.of("app", "keywhiz"));
     Group secondGroup = new Group(2, "second Group", "testing group", now, "client", now, "client",
@@ -82,7 +82,7 @@ public class AutomationClientResourceTest {
   }
 
   @Test public void createNewClient() {
-    Client client = new Client(543L, "client", "2nd client", now, "test", now, "test", null, null, true, false);
+    Client client = new Client(543L, "client", "2nd client", now, "test", now, "test", null, null, true, false, null);
 
     CreateClientRequest request = new CreateClientRequest("client");
 
@@ -99,7 +99,7 @@ public class AutomationClientResourceTest {
   }
 
   @Test public void createNewClientAlreadyExists() {
-    Client client = new Client(543L, "client", "2nd client", now, "test", now, "test", null, null, true, false);
+    Client client = new Client(543L, "client", "2nd client", now, "test", now, "test", null, null, true, false, null);
 
     CreateClientRequest request = new CreateClientRequest("client");
 

@@ -44,7 +44,8 @@ class ClientMapper implements RecordMapper<ClientsRecord, Client> {
         lastSeen,
         expiration,
         r.getEnabled(),
-        r.getAutomationallowed()
+        r.getAutomationallowed(),
+        r.getSpiffeUri()
     );
   }
 }

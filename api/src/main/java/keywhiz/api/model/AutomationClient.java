@@ -23,7 +23,7 @@ public class AutomationClient extends Client {
   private AutomationClient(Client client) {
     super(client.getId(), client.getName(), client.getDescription(), client.getCreatedAt(),
         client.getCreatedBy(), client.getUpdatedAt(), client.getUpdatedBy(), client.getLastSeen(),
-        client.getExpiration(), client.isEnabled(), true);
+        client.getExpiration(), client.isEnabled(), true, client.getSpiffeUri());
   }
 
   @Nullable public static AutomationClient of(Client client) {

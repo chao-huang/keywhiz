@@ -25,7 +25,9 @@ import keywhiz.api.ApiDate;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Strings.nullToEmpty;
 
-/** Clients table entry for a client-cert authenticated client. */
+/**
+ * Clients table entry for a client-cert authenticated client.
+ */
 public class Client {
   @JsonProperty
   private final long id;
@@ -54,13 +56,23 @@ public class Client {
   @JsonProperty
   private final ApiDate expiration;
 
-  /** True if client is enabled to retrieve secrets. */
+  /**
+   * True if client is enabled to retrieve secrets.
+   */
   @JsonProperty
   private final boolean enabled;
 
-  /** True if client is enabled to do automationAllowed tasks. */
+  /**
+   * True if client is enabled to do automationAllowed tasks.
+   */
   @JsonProperty
   private final boolean automationAllowed;
+
+  /**
+   * Optional: SPIFFE URI associated with this client.
+   */
+  @JsonProperty
+  private final String spiffeUri;
 
   public Client(@JsonProperty("id") long id,
       @JsonProperty("name") String name,
@@ -72,7 +84,8 @@ public class Client {
       @JsonProperty("lastSeen") @Nullable ApiDate lastSeen,
       @JsonProperty("expiration") @Nullable ApiDate expiration,
       @JsonProperty("enabled") boolean enabled,
-      @JsonProperty("automationAllowed") boolean automationAllowed) {
+      @JsonProperty("automationAllowed") boolean automationAllowed,
+      @JsonProperty("spiffeUri") @Nullable String spiffeUri) {
     this.id = id;
     this.name = checkNotNull(name);
     this.description = nullToEmpty(description);
@@ -85,6 +98,8 @@ public class Client {
 
     this.enabled = enabled;
     this.automationAllowed = automationAllowed;
+
+    this.spiffeUri = spiffeUri;
   }
 
   private static ApiDate cleanTimestamp(ApiDate instant) {
@@ -138,6 +153,10 @@ public class Client {
     return automationAllowed;
   }
 
+  public String getSpiffeUri() {
+    return spiffeUri;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (o instanceof Client) {
@@ -152,7 +171,8 @@ public class Client {
           Objects.equal(this.lastSeen, that.lastSeen) &&
           Objects.equal(this.expiration, that.expiration) &&
           this.enabled == that.enabled &&
-          this.automationAllowed == that.automationAllowed) {
+          this.automationAllowed == that.automationAllowed &&
+          Objects.equal(this.spiffeUri, that.spiffeUri)) {
         return true;
       }
     }
@@ -163,7 +183,7 @@ public class Client {
   @Override
   public int hashCode() {
     return Objects.hashCode(id, name, description, createdAt, createdBy, updatedAt, updatedBy,
-        lastSeen, expiration, enabled, automationAllowed);
+        lastSeen, expiration, enabled, automationAllowed, spiffeUri);
   }
 
   @Override
@@ -180,6 +200,7 @@ public class Client {
         .add("expiration", expiration)
         .add("enabled", enabled)
         .add("automationAllowed", automationAllowed)
+        .add("spiffeUri", spiffeUri)
         .toString();
   }
 }
