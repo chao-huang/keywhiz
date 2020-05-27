@@ -8,7 +8,8 @@ import keywhiz.api.ApiDate;
 import keywhiz.api.model.Client;
 
 @AutoValue public abstract class ClientDetailResponseV2 {
-  ClientDetailResponseV2() {} // prevent sub-classing
+  ClientDetailResponseV2() {
+  } // prevent sub-classing
 
   public static ClientDetailResponseV2 fromClient(Client client) {
     Optional<ApiDate> lastSeen = Optional.ofNullable(client.getLastSeen());
@@ -20,7 +21,8 @@ import keywhiz.api.model.Client;
         client.getUpdatedAt().toEpochSecond(),
         client.getCreatedBy(),
         client.getUpdatedBy(),
-        lastSeen.map(ApiDate::toEpochSecond)
+        lastSeen.map(ApiDate::toEpochSecond),
+        client.getSpiffeUri()
     );
   }
 
@@ -35,15 +37,25 @@ import keywhiz.api.model.Client;
       @JsonProperty("updatedAtSeconds") long updatedAtSeconds,
       @JsonProperty("createdBy") String createdBy,
       @JsonProperty("updatedBy") String updatedBy,
-      @JsonProperty("lastSeenSeconds") Optional<Long> lastSeenSeconds) {
-    return new AutoValue_ClientDetailResponseV2(name, description, createdAtSeconds, updatedAtSeconds, createdBy, updatedBy, lastSeenSeconds);
+      @JsonProperty("lastSeenSeconds") Optional<Long> lastSeenSeconds,
+      @JsonProperty("spiffeUri") String spiffeUri) {
+    return new AutoValue_ClientDetailResponseV2(name, description, createdAtSeconds,
+        updatedAtSeconds, createdBy, updatedBy, lastSeenSeconds, spiffeUri);
   }
 
   @JsonProperty("name") public abstract String name();
+
   @JsonProperty("description") public abstract String description();
+
   @JsonProperty("createdAtSeconds") public abstract long createdAtSeconds();
+
   @JsonProperty("updatedAtSeconds") public abstract long updatedAtSeconds();
+
   @JsonProperty("createdBy") public abstract String createdBy();
+
   @JsonProperty("updatedBy") public abstract String updatedBy();
+
   @JsonProperty("lastSeenSeconds") public abstract Optional<Long> lastSeenSeconds();
+
+  @JsonProperty("spiffeUri") public abstract String spiffeUri();
 }

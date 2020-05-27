@@ -94,7 +94,7 @@ public class ClientAuthFactoryTest {
     when(clientDAO.getClient("new-client")).thenReturn(Optional.empty());
 
     // a new DB record is created
-    when(clientDAO.createClient(eq("new-client"), eq("automatic"), any())).thenReturn(2345L);
+    when(clientDAO.createClient(eq("new-client"), eq("automatic"), any(), any())).thenReturn(2345L);
     when(clientDAO.getClientById(2345L)).thenReturn(Optional.of(newClient));
 
     assertThat(factory.provide(request)).isEqualTo(newClient);

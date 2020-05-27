@@ -82,8 +82,13 @@ public class ClientsResourceTest {
   }
 
   @Test public void createsClient() {
-    CreateClientRequestV2 request = CreateClientRequestV2.builder().name("new-client-name").build();
-    when(clientDAO.createClient("new-client-name", "user", "")).thenReturn(42L);
+    CreateClientRequestV2 request = CreateClientRequestV2.builder()
+        .name("new-client-name")
+        .description("description")
+        .spiffeURI("spiffe//testenv.com/new-client-name")
+        .build();
+    when(clientDAO.createClient("new-client-name", "user", "description",
+        "spiffe//testenv/new-client-name")).thenReturn(42L);
     when(clientDAO.getClientById(42L)).thenReturn(Optional.of(client));
     when(aclDAO.getSanitizedSecretsFor(client)).thenReturn(ImmutableSet.of());
 
