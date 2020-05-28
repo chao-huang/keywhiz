@@ -5,6 +5,7 @@
   "updatedAtSeconds": 1347246930,
   "createdBy": "creator-user",
   "updatedBy": "updater-user",
-  "lastSeenSeconds": 1347246930
+  "lastSeenSeconds": 1347246930,
+  "spiffeUri" : "spiffe//test.env/client-name"
 }
 

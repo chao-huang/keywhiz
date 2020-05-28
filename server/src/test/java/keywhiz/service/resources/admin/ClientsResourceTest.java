@@ -88,7 +88,7 @@ public class ClientsResourceTest {
         .spiffeURI("spiffe//testenv.com/new-client-name")
         .build();
     when(clientDAO.createClient("new-client-name", "user", "description",
-        "spiffe//testenv/new-client-name")).thenReturn(42L);
+        "spiffe//testenv.com/new-client-name")).thenReturn(42L);
     when(clientDAO.getClientById(42L)).thenReturn(Optional.of(client));
     when(aclDAO.getSanitizedSecretsFor(client)).thenReturn(ImmutableSet.of());
 

@@ -7,6 +7,8 @@ import java.util.Optional;
 import keywhiz.api.ApiDate;
 import keywhiz.api.model.Client;
 
+import static com.google.common.base.Strings.nullToEmpty;
+
 @AutoValue public abstract class ClientDetailResponseV2 {
   ClientDetailResponseV2() {
   } // prevent sub-classing
@@ -22,7 +24,7 @@ import keywhiz.api.model.Client;
         client.getCreatedBy(),
         client.getUpdatedBy(),
         lastSeen.map(ApiDate::toEpochSecond),
-        client.getSpiffeUri()
+        nullToEmpty(client.getSpiffeUri())
     );
   }
 

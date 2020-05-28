@@ -34,6 +34,7 @@ public class ClientDetailResponseTest {
         "creator-user",
         "updater-user",
         ApiDate.parse("2012-09-10T03:15:30.001Z"),
+        "spiffe//test.env/client-name",
         ImmutableList.of(),
         ImmutableList.of());
 
@@ -51,6 +52,7 @@ public class ClientDetailResponseTest {
         "creator-user",
         "updater-user",
         null,
+        "spiffe//test.env/client-name",
         ImmutableList.of(),
         ImmutableList.of());
 

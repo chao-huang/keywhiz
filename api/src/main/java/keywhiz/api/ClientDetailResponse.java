@@ -48,7 +48,12 @@ public class ClientDetailResponse {
   @JsonProperty
   public final ApiDate lastSeen;
 
-  /** List of secrets the group has access to. The secrets do not contain content. */
+  @JsonProperty
+  public final String spiffeUri;
+
+  /**
+   * List of secrets the group has access to. The secrets do not contain content.
+   */
   @JsonProperty
   public final ImmutableList<SanitizedSecret> secrets;
 
@@ -63,6 +68,7 @@ public class ClientDetailResponse {
       @JsonProperty("createdBy") String createdBy,
       @JsonProperty("updatedBy") String updatedBy,
       @JsonProperty("lastSeen") @Nullable ApiDate lastSeen,
+      @JsonProperty("spiffeUri") @Nullable String spiffeUri,
       @JsonProperty("groups") ImmutableList<Group> groups,
       @JsonProperty("secrets") ImmutableList<SanitizedSecret> secrets) {
     this.id = id;
@@ -73,6 +79,7 @@ public class ClientDetailResponse {
     this.createdBy = createdBy;
     this.updatedBy = updatedBy;
     this.lastSeen = lastSeen;
+    this.spiffeUri = spiffeUri;
     this.groups = groups;
     this.secrets = secrets;
   }
@@ -87,6 +94,7 @@ public class ClientDetailResponse {
         client.getCreatedBy(),
         client.getUpdatedBy(),
         client.getLastSeen(),
+        client.getSpiffeUri(),
         groups,
         secrets);
   }

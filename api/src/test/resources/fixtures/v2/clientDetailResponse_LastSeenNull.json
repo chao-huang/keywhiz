@@ -5,6 +5,7 @@
   "updatedAtSeconds": 1347246930,
   "createdBy": "creator-user",
   "updatedBy": "updater-user",
-  "lastSeenSeconds": null
+  "lastSeenSeconds": null,
+  "spiffeUri": ""
 }
 

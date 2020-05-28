@@ -35,7 +35,8 @@ public class ClientDetailResponseV2Test {
         OffsetDateTime.parse("2012-09-10T03:15:30Z").toEpochSecond(),
         "creator-user",
         "updater-user",
-        Optional.of(OffsetDateTime.parse("2012-09-10T03:15:30Z").toEpochSecond())
+        Optional.of(OffsetDateTime.parse("2012-09-10T03:15:30Z").toEpochSecond()),
+        "spiffe//test.env/client-name"
         );
 
     assertThat(asJson(clientDetailResponse))
