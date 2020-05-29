@@ -237,10 +237,14 @@ public class KeywhizClient {
     });
   }
 
-  public ClientDetailResponse createClient(String name) throws IOException {
+  public ClientDetailResponse createClient(String name, String description, String spiffeUri) throws IOException {
     checkArgument(!name.isEmpty());
     String response = httpPost(baseUrl.resolve("/admin/clients"),
-        CreateClientRequestV2.builder().name(name).build());
+        CreateClientRequestV2.builder()
+            .name(name)
+            .description(description)
+            .spiffeUri(spiffeUri)
+            .build());
     return mapper.readValue(response, ClientDetailResponse.class);
   }
 

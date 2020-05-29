@@ -85,7 +85,7 @@ public class ClientsResourceTest {
     CreateClientRequestV2 request = CreateClientRequestV2.builder()
         .name("new-client-name")
         .description("description")
-        .spiffeURI("spiffe//testenv.com/new-client-name")
+        .spiffeUri("spiffe//testenv.com/new-client-name")
         .build();
     when(clientDAO.createClient("new-client-name", "user", "description",
         "spiffe//testenv.com/new-client-name")).thenReturn(42L);

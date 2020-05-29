@@ -20,7 +20,7 @@ import static com.google.common.base.Strings.nullToEmpty;
     return new AutoValue_CreateClientRequestV2.Builder()
         .groups()
         .description("")
-        .spiffeURI("");
+        .spiffeUri("");
   }
 
   @AutoValue.Builder public abstract static class Builder {
@@ -29,7 +29,7 @@ import static com.google.common.base.Strings.nullToEmpty;
 
     public abstract Builder name(String name);
     public abstract Builder description(String description);
-    public abstract Builder spiffeURI(String spiffeURI);
+    public abstract Builder spiffeUri(String spiffeUri);
     abstract CreateClientRequestV2 autoBuild();
 
     public Builder groups(String... groups) {
@@ -53,17 +53,17 @@ import static com.google.common.base.Strings.nullToEmpty;
       @JsonProperty("name") String name,
       @JsonProperty("groups") Iterable<String> groups,
       @JsonProperty("description") @Nullable String description,
-      @JsonProperty("spiffeURI") @Nullable String spiffeURI) {
+      @JsonProperty("spiffeUri") @Nullable String spiffeUri) {
     return builder()
         .name(name)
         .groups(ImmutableSet.copyOf(groups))
         .description(nullToEmpty(description))
-        .spiffeURI(nullToEmpty(spiffeURI))
+        .spiffeUri(nullToEmpty(spiffeUri))
         .build();
   }
 
   @JsonProperty("name") public abstract String name();
   @JsonProperty("groups") public abstract ImmutableSet<String> groups();
   @JsonProperty("description") public abstract String description();
-  @JsonProperty("spiffeURI") public abstract String spiffeURI();
+  @JsonProperty("spiffeUri") public abstract String spiffeUri();
 }

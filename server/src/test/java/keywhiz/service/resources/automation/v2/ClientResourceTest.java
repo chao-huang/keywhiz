@@ -48,7 +48,7 @@ public class ClientResourceTest {
     Response httpResponse = create(CreateClientRequestV2.builder()
         .name("client1")
         .description("description")
-        .spiffeURI("spiffe//testenv.com/client1")
+        .spiffeUri("spiffe//testenv.com/client1")
         .build());
     assertThat(httpResponse.code()).isEqualTo(201);
     URI location = URI.create(Objects.requireNonNull(httpResponse.header(LOCATION)));

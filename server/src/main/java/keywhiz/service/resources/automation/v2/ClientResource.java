@@ -100,7 +100,7 @@ public class ClientResource {
 
     // Creates new client record
     long clientId = clientDAOReadWrite.createClient(client, creator, request.description(),
-        request.spiffeURI());
+        request.spiffeUri());
     auditLog.recordEvent(new Event(Instant.now(), EventTag.CLIENT_CREATE, creator, client));
 
     // Enrolls client in any requested groups

@@ -53,8 +53,10 @@ public class AssignActionTest {
   Group group = new Group(5, "group", null, null, null, null, null, null);
   GroupDetailResponse groupDetailResponse = GroupDetailResponse.fromGroup(group,
       ImmutableList.<SanitizedSecret>of(), ImmutableList.<Client>of());
-  Secret secret = new Secret(16, "secret", null, () -> "c2VjcmV0MQ==", "checksum", NOW, null, NOW, null, null, null,
-      ImmutableMap.of(), 0, 1L, NOW, null);
+  Secret secret =
+      new Secret(16, "secret", null, () -> "c2VjcmV0MQ==", "checksum", NOW, null, NOW, null, null,
+          null,
+          ImmutableMap.of(), 0, 1L, NOW, null);
   SanitizedSecret sanitizedSecret = SanitizedSecret.fromSecret(secret);
 
   @Before
@@ -68,7 +70,9 @@ public class AssignActionTest {
     assignActionConfig.assignType = Arrays.asList("client");
     assignActionConfig.name = "non-existent-client-name";
     assignActionConfig.group = group.getName();
-    Client client = new Client(543, assignActionConfig.name, null, null, null, null, null, null, null, false, false, null);
+    Client client =
+        new Client(543, assignActionConfig.name, null, null, null, null, null, null, null, false,
+            false, null);
 
     // Group exists
     when(keywhizClient.getGroupByName(group.getName())).thenReturn(group);
@@ -80,7 +84,7 @@ public class AssignActionTest {
 
     assignAction.run();
 
-    verify(keywhizClient).createClient(assignActionConfig.name);
+    verify(keywhizClient).createClient(assignActionConfig.name, "", "");
     verify(keywhizClient).enrollClientInGroupByIds(client.getId(), group.getId());
   }
 
@@ -89,7 +93,9 @@ public class AssignActionTest {
     assignActionConfig.assignType = Arrays.asList("client");
     assignActionConfig.name = "existing-client-name";
     assignActionConfig.group = group.getName();
-    Client client = new Client(5673, assignActionConfig.name, null, null, null, null, null, null, null, false, true, null);
+    Client client =
+        new Client(5673, assignActionConfig.name, null, null, null, null, null, null, null, false,
+            true, null);
 
     // Group exists
     when(keywhizClient.getGroupByName(group.getName())).thenReturn(group);
@@ -100,7 +106,7 @@ public class AssignActionTest {
 
     assignAction.run();
 
-    verify(keywhizClient, never()).createClient(anyString());
+    verify(keywhizClient, never()).createClient(anyString(), anyString(), anyString());
     verify(keywhizClient).enrollClientInGroupByIds(client.getId(), group.getId());
   }
 
